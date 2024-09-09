@@ -149,7 +149,7 @@ class Interface:
             if (cond1 or cond2):
                 if not cond1:  # cond2 is the reason for retrying
                     wordlen_check_safety_count += 1
-                    _Logger.Log(f"SafeGenerateText: Generation Failed Due To Short Response; safety count: {wordlen_check_safety_count}")
+                    _Logger.Log(f"SafeGenerateText: Generation Failed Due To Short Response; safety count: {wordlen_check_safety_count}", 7)
                     if wordlen_check_safety_count > 10:
                         break  # won't fail more than 10 times.
                 if self.GetLastMessageText(NewMsg).isspace():
