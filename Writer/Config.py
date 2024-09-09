@@ -1,24 +1,28 @@
+# DEFAULT_MODEL_CONFIG = "ollama://llama3:70b"
+DEFAULT_MODEL_CONFIG = "ollama://llama3.1:8b@192.168.1.71:11434"
+
 INITIAL_OUTLINE_WRITER_MODEL = (
-    "ollama://llama3:70b"  # Note this value is overridden by the argparser
+    DEFAULT_MODEL_CONFIG  # Note this value is overridden by the argparser
 )
 CHAPTER_OUTLINE_WRITER_MODEL = (
-    "ollama://llama3:70b"  # Note this value is overridden by the argparser
+    DEFAULT_MODEL_CONFIG  # Note this value is overridden by the argparser
 )
-CHAPTER_STAGE1_WRITER_MODEL = "ollama://llama3:70b"  # Note this value is overridden by the argparser
-CHAPTER_STAGE2_WRITER_MODEL = "ollama://llama3:70b"  # Note this value is overridden by the argparser
-CHAPTER_STAGE3_WRITER_MODEL = "ollama://llama3:70b"  # Note this value is overridden by the argparser
-CHAPTER_STAGE4_WRITER_MODEL = "ollama://llama3:70b"  # Note this value is overridden by the argparser
+CHAPTER_STAGE1_WRITER_MODEL = DEFAULT_MODEL_CONFIG  # Note this value is overridden by the argparser
+CHAPTER_STAGE2_WRITER_MODEL = DEFAULT_MODEL_CONFIG  # Note this value is overridden by the argparser
+CHAPTER_STAGE3_WRITER_MODEL = DEFAULT_MODEL_CONFIG  # Note this value is overridden by the argparser
+CHAPTER_STAGE4_WRITER_MODEL = DEFAULT_MODEL_CONFIG  # Note this value is overridden by the argparser
 CHAPTER_REVISION_WRITER_MODEL = (
-    "ollama://llama3:70b"  # Note this value is overridden by the argparser
+    DEFAULT_MODEL_CONFIG  # Note this value is overridden by the argparser
 )
-REVISION_MODEL = "ollama://llama3:70b"  # Note this value is overridden by the argparser
-EVAL_MODEL = "ollama://llama3:70b"  # Note this value is overridden by the argparser
-INFO_MODEL = "ollama://llama3:70b"  # Note this value is overridden by the argparser
-SCRUB_MODEL = "ollama://llama3:70b"  # Note this value is overridden by the argparser
-CHECKER_MODEL = "ollama://llama3:70b"  # Model used to check results
-TRANSLATOR_MODEL = "ollama://llama3:70b"
+REVISION_MODEL = DEFAULT_MODEL_CONFIG  # Note this value is overridden by the argparser
+EVAL_MODEL = DEFAULT_MODEL_CONFIG  # Note this value is overridden by the argparser
+INFO_MODEL = DEFAULT_MODEL_CONFIG  # Note this value is overridden by the argparser
+SCRUB_MODEL = DEFAULT_MODEL_CONFIG  # Note this value is overridden by the argparser
+CHECKER_MODEL = DEFAULT_MODEL_CONFIG  # Model used to check results
+TRANSLATOR_MODEL = DEFAULT_MODEL_CONFIG
 
-OLLAMA_HOST = "127.0.0.1:11434"
+# OLLAMA_HOST = "127.0.0.1:11434"
+OLLAMA_HOST = "192.168.1.71:11434"
 
 SEED = 12  # Note this value is overridden by the argparser
 

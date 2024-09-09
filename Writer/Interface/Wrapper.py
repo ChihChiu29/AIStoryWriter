@@ -140,14 +140,27 @@ class Interface:
 
         NewMsg = self.ChatAndStreamResponse(_Logger, _Messages, _Model, _SeedOverride, _Format)
 
-        while (self.GetLastMessageText(NewMsg).isspace()) or (len(self.GetLastMessageText(NewMsg).split(" ")) < _MinWordCount):
-            if self.GetLastMessageText(NewMsg).isspace():
-                _Logger.Log("SafeGenerateText: Generation Failed Due To Empty (Whitespace) Response, Reattempting Output", 7)
-            elif (len(self.GetLastMessageText(NewMsg).split(" ")) < _MinWordCount):
-                _Logger.Log(f"SafeGenerateText: Generation Failed Due To Short Response ({len(self.GetLastMessageText(NewMsg).split(' '))}, min is {_MinWordCount}), Reattempting Output", 7)
+        wordlen_check_safety_count = 1
+        while True:
+            cond1 = self.GetLastMessageText(NewMsg).isspace()
+            wordlen = len(self.GetLastMessageText(NewMsg).split(" "))
+            cond2 = wordlen < _MinWordCount
+            # while (self.GetLastMessageText(NewMsg).isspace()) or (len(self.GetLastMessageText(NewMsg).split(" ")) < _MinWordCount):
+            if (cond1 or cond2):
+                if not cond1:  # cond2 is the reason for retrying
+                    wordlen_check_safety_count += 1
+                    _Logger.Log(f"SafeGenerateText: Generation Failed Due To Short Response; safety count: {wordlen_check_safety_count}")
+                    if wordlen_check_safety_count > 10:
+                        break  # won't fail more than 10 times.
+                if self.GetLastMessageText(NewMsg).isspace():
+                    _Logger.Log("SafeGenerateText: Generation Failed Due To Empty (Whitespace) Response, Reattempting Output", 7)
+                elif (len(self.GetLastMessageText(NewMsg).split(" ")) < _MinWordCount):
+                    _Logger.Log(f"SafeGenerateText: Generation Failed Due To Short Response ({len(self.GetLastMessageText(NewMsg).split(' '))}, min is {_MinWordCount}), Reattempting Output", 7)
 
-            del _Messages[-1] # Remove failed attempt
-            NewMsg = self.ChatAndStreamResponse(_Logger, _Messages, _Model, random.randint(0, 99999), _Format)
+                del _Messages[-1] # Remove failed attempt
+                NewMsg = self.ChatAndStreamResponse(_Logger, _Messages, _Model, random.randint(0, 99999), _Format)
+            else:
+                break
 
         return NewMsg
 
@@ -155,6 +168,7 @@ class Interface:
 
     def SafeGenerateJSON(self, _Logger, _Messages, _Model:str, _SeedOverride:int = -1, _RequiredAttribs:list = []):
 
+        safety_check = 20;  # max 10 times
         while True:
             Response = self.SafeGenerateText(_Logger, _Messages, _Model, _SeedOverride, _Format = "JSON")
             try:
@@ -172,6 +186,10 @@ class Interface:
             except Exception as e:
                 _Logger.Log(f"JSON Error during parsing: {e}", 7)
                 del _Messages[-1] # Remove failed attempt
+
+                safety_check -= 1
+                if safety_check < 0:
+                    break
                 Response = self.ChatAndStreamResponse(_Logger, _Messages, _Model, random.randint(0, 99999), _Format = "JSON")
 
 
