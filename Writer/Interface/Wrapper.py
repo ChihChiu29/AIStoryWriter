@@ -184,7 +184,7 @@ class Interface:
 
             except Exception as e:
                 _Logger.Log(f"JSON Error during parsing: {e}", 7)
-                _Logger.Log(f"Content before failing: {self.GetLastMessageText(Response)}", 7)
+                # _Logger.Log(f"Content before failing: {self.GetLastMessageText(Response)}", 7)
 
                 del _Messages[-1] # Remove failed attempt
                 # BUG: `Response = self.SafeGenerateText(...)` in the while loop would create this properly.n
@@ -261,15 +261,13 @@ class Interface:
                 if key not in ValidParameters:
                     raise ValueError(f"Invalid parameter: {key}")
 
-            if _Format == "json":
+            if _Format and _Format.lower() == "json":
                 # Overwrite the format to JSON
                 ModelOptions["format"] = "json"
 
                 # if temperature is not set, set it to 0 for JSON mode
                 if "temperature" not in ModelOptions:
-                    # ModelOptions["temperature"] = 0
-                    # Give it a bit randomness otherwise retrying is not good.
-                    ModelOptions["temperature"] = 0.1
+                    ModelOptions["temperature"] = 0
                 _Logger.Log("Using Ollama JSON Format", 4)
             else:
                 # Let's see if this would reduce the chance that it passes the millions while loop.
