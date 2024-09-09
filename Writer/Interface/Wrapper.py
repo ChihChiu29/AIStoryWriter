@@ -269,7 +269,7 @@ class Interface:
                 if "temperature" not in ModelOptions:
                     # ModelOptions["temperature"] = 0
                     # Avoid inf loop.
-                    ModelOptions["temperature"] = 0.1
+                    ModelOptions["temperature"] = 0.5
                 _Logger.Log("Using Ollama JSON Format", 4)
             else:
                 # Let's see if this would reduce the chance that it passes the millions while loop.
