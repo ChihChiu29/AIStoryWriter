@@ -168,7 +168,6 @@ class Interface:
 
     def SafeGenerateJSON(self, _Logger, _Messages, _Model:str, _SeedOverride:int = -1, _RequiredAttribs:list = []):
 
-        safety_check = 1
         while True:
             Response = self.SafeGenerateText(_Logger, _Messages, _Model, _SeedOverride, _Format = "JSON")
             try:
@@ -185,22 +184,11 @@ class Interface:
 
             except Exception as e:
                 _Logger.Log(f"JSON Error during parsing: {e}", 7)
-                _Logger.Log("Content before failing:", 7)
-                content = self.GetLastMessageText(Response)
-                _Logger.Log(content, 7)
-                if len(content) < 10:
-                    time_to_sleep = safety_check * 10
-                    _Logger.Log(f"Maybe server is overloaded? Will sleep {time_to_sleep} sec before trying again", 7)
-                    time.sleep(time_to_sleep)
+                _Logger.Log(f"Content before failing: {self.GetLastMessageText(Response)}", 7)
 
-                _Logger.Log(_Messages[-1], 7)
-                import pdb; pdb.set_trace()
                 del _Messages[-1] # Remove failed attempt
-
-                safety_check += 1
-                if safety_check > 20:
-                    break
-                Response = self.ChatAndStreamResponse(_Logger, _Messages, _Model, random.randint(0, 99999), _Format = "JSON")
+                # BUG: `Response = self.SafeGenerateText(...)` in the while loop would create this properly.n
+                # Response = self.ChatAndStreamResponse(_Logger, _Messages, _Model, random.randint(0, 99999), _Format = "JSON")
 
 
 
@@ -212,12 +200,11 @@ class Interface:
         _SeedOverride: int = -1,
         _Format: str = None,
     ):
-        Provider, ProviderModel, ModelHost, ModelOptions = self.GetModelAndProvider(
-            _Model
-        )
+        Provider, ProviderModel, ModelHost, ModelOptions = self.GetModelAndProvider(_Model)
 
         # Calculate Seed Information
-        Seed = Writer.Config.SEED if _SeedOverride == -1 else _SeedOverride
+        # Seed = Writer.Config.SEED if _SeedOverride == -1 else _SeedOverride
+        Seed = random.randint(0, 99999) if _SeedOverride == -1 else _SeedOverride
 
         # Log message history if DEBUG is enabled
         if Writer.Config.DEBUG:
