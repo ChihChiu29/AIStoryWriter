@@ -272,7 +272,9 @@ class Interface:
 
                 # if temperature is not set, set it to 0 for JSON mode
                 if "temperature" not in ModelOptions:
-                    ModelOptions["temperature"] = 0
+                    # ModelOptions["temperature"] = 0
+                    # Give it a bit randomness otherwise retrying is not good.
+                    ModelOptions["temperature"] = 0.1
                 _Logger.Log("Using Ollama JSON Format", 4)
 
             Stream = self.Clients[_Model].chat(
