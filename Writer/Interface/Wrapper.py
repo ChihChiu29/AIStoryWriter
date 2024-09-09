@@ -150,7 +150,7 @@ class Interface:
                 if not cond1:  # cond2 is the reason for retrying
                     wordlen_check_safety_count += 1
                     _Logger.Log(f"SafeGenerateText: Generation Failed Due To Short Response; safety count: {wordlen_check_safety_count}", 7)
-                    if wordlen_check_safety_count > 10:
+                    if wordlen_check_safety_count > 30:
                         break  # won't fail more than 10 times.
                 if self.GetLastMessageText(NewMsg).isspace():
                     _Logger.Log("SafeGenerateText: Generation Failed Due To Empty (Whitespace) Response, Reattempting Output", 7)
@@ -168,7 +168,7 @@ class Interface:
 
     def SafeGenerateJSON(self, _Logger, _Messages, _Model:str, _SeedOverride:int = -1, _RequiredAttribs:list = []):
 
-        safety_check = 20;  # max 10 times
+        safety_check = 1
         while True:
             Response = self.SafeGenerateText(_Logger, _Messages, _Model, _SeedOverride, _Format = "JSON")
             try:
@@ -185,10 +185,20 @@ class Interface:
 
             except Exception as e:
                 _Logger.Log(f"JSON Error during parsing: {e}", 7)
+                _Logger.Log("Content before failing:", 7)
+                content = self.GetLastMessageText(Response)
+                _Logger.Log(content, 7)
+                if len(content) < 10:
+                    time_to_sleep = safety_check * 10
+                    _Logger.Log(f"Maybe server is overloaded? Will sleep {time_to_sleep} sec before trying again", 7)
+                    time.sleep(time_to_sleep)
+
+                _Logger.Log(_Messages[-1], 7)
+                import pdb; pdb.set_trace()
                 del _Messages[-1] # Remove failed attempt
 
-                safety_check -= 1
-                if safety_check < 0:
+                safety_check += 1
+                if safety_check > 20:
                     break
                 Response = self.ChatAndStreamResponse(_Logger, _Messages, _Model, random.randint(0, 99999), _Format = "JSON")
 
@@ -264,8 +274,6 @@ class Interface:
                 if key not in ValidParameters:
                     raise ValueError(f"Invalid parameter: {key}")
 
-            _Logger.Log(f"Using Ollama Model Options: {ModelOptions}", 4)
-
             if _Format == "json":
                 # Overwrite the format to JSON
                 ModelOptions["format"] = "json"
@@ -276,6 +284,11 @@ class Interface:
                     # Give it a bit randomness otherwise retrying is not good.
                     ModelOptions["temperature"] = 0.1
                 _Logger.Log("Using Ollama JSON Format", 4)
+            else:
+                # Let's see if this would reduce the chance that it passes the millions while loop.
+                ModelOptions["temperature"] = 0.9
+
+            _Logger.Log(f"Using Ollama Model Options: {ModelOptions}", 4)
 
             Stream = self.Clients[_Model].chat(
                 model=ProviderModel,
