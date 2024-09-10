@@ -574,6 +574,7 @@ Be detailed and well-formatted in your response, yet ensure you have a well-thou
 SCENES_TO_JSON = """
 # CONTEXT #
 I need to convert the following scene-by-scene outline into a JSON formatted list.
+Make sure the generated content is a valid JSON format, and it does not start with "```" or "```json".
 ```
 {_Scenes}
 ```
