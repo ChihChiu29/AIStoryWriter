@@ -1,5 +1,10 @@
-# DEFAULT_MODEL_CONFIG = "ollama://llama3:70b"
-DEFAULT_MODEL_CONFIG = "ollama://llama3.1:8b@192.168.1.71:11434"
+# DEFAULT_MODEL_CONFIG = "ollama://llama3:70b"  # Can't load
+# DEFAULT_MODEL_CONFIG = "ollama://llama3.1:8b@192.168.1.71:11434"  # OK-ish
+# DEFAULT_MODEL_CONFIG = "ollama://gemma2:9b@192.168.1.71:11434"  # Best so far
+# DEFAULT_MODEL_CONFIG = "ollama://llama3-gradient:8b@192.168.1.71:11434"  # Not good at all
+# DEFAULT_MODEL_CONFIG = "ollama://qwen2:7b@192.168.1.71:11434"  # Not good at all
+# DEFAULT_MODEL_CONFIG = "ollama://gemma2:27b@192.168.1.71:11434"  # Too slow; a few words per min.
+DEFAULT_MODEL_CONFIG = "ollama://phi3:14b@192.168.1.71:11434"
 
 INITIAL_OUTLINE_WRITER_MODEL = (
     DEFAULT_MODEL_CONFIG  # Note this value is overridden by the argparser
