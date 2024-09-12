@@ -4,7 +4,17 @@
 # DEFAULT_MODEL_CONFIG = "ollama://llama3-gradient:8b@192.168.1.71:11434"  # Not good at all
 # DEFAULT_MODEL_CONFIG = "ollama://qwen2:7b@192.168.1.71:11434"  # Not good at all
 # DEFAULT_MODEL_CONFIG = "ollama://gemma2:27b@192.168.1.71:11434"  # Too slow; a few words per min.
-DEFAULT_MODEL_CONFIG = "ollama://phi3:14b@192.168.1.71:11434"
+# DEFAULT_MODEL_CONFIG = "ollama://phi3:14b@192.168.1.71:11434"  # Went into a loop that seems to be about theory proving.
+# DEFAULT_MODEL_CONFIG = "ollama://mistral:7b@192.168.1.71:11434"  # Waiting eval "Story_The_Forgotten_Kingdom"
+# DEFAULT_MODEL_CONFIG = "ollama://mixtral:8x7b@192.168.1.71:11434"  # Too slow; a few words per min.
+# DEFAULT_MODEL_CONFIG = "ollama://zephyr:7b@192.168.1.71:11434"  # Wait eval "The Lost City"
+# DEFAULT_MODEL_CONFIG = "ollama://mistral-nemo:12b@192.168.1.71:11434"  # Wait eval "The Lost Heir"
+# DEFAULT_MODEL_CONFIG = "ollama://dolphin-llama3:8b@192.168.1.71:11434"  # Wait eval "Supercatomeow's Adventure"
+# DEFAULT_MODEL_CONFIG = "ollama://orca-mini:7b@192.168.1.71:11434"  # Doesn't work at all, 0 word generated.
+# DEFAULT_MODEL_CONFIG = "ollama://yi:9b@192.168.1.71:11434"  # Doesn't work at all, 0 word generated.
+# DEFAULT_MODEL_CONFIG = "ollama://mistral-openorca:7b@192.168.1.71:11434"  # Wait eval "Supercatomeow and The Master's Enchanted Adventure"
+DEFAULT_MODEL_CONFIG = "ollama://llava-llama3:8b@192.168.1.71:11434"
+
 
 INITIAL_OUTLINE_WRITER_MODEL = (
     DEFAULT_MODEL_CONFIG  # Note this value is overridden by the argparser
