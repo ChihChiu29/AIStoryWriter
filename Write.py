@@ -372,16 +372,23 @@ for Chapter in NewChapters:
     StoryBodyText += Chapter + "\n\n\n"
 
 
+def _GetDictIgnoreCase(dict_data: dict, key: str):
+    if key in dict_data:
+        return dict_data[key]
+    else:
+        dict_data_low_case = {k.lower(): v for (k, v) in dict_data.values()}
+        return dict_data_low_case[key.lower()]
+
 # Now Generate Info
 Messages = []
 Messages.append(Interface.BuildUserQuery(Outline))
 Info = Writer.StoryInfo.GetStoryInfo(Interface, SysLogger, Messages)
-Title = Info["Title"]
-StoryInfoJSON.update({"Title": Info["Title"]})
-Summary = Info["Summary"]
-StoryInfoJSON.update({"Summary": Info["Summary"]})
-Tags = Info["Tags"]
-StoryInfoJSON.update({"Tags": Info["Tags"]})
+Title = _GetDictIgnoreCase(Info, "Title")
+StoryInfoJSON.update({"Title": Title})
+Summary = _GetDictIgnoreCase(Info, "Summary")
+StoryInfoJSON.update({"Summary": Summary})
+Tags = _GetDictIgnoreCase(Info, "Tags")
+StoryInfoJSON.update({"Tags": Tags})
 
 print("---------------------------------------------")
 print(f"Story Title: {Title}")
