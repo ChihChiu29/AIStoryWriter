@@ -160,7 +160,7 @@ cython_debug/
 #.idea/
 
 
-Stories/*
+# Stories/*
 Prompts/*
 Logs/*
 EvalLogs/*
