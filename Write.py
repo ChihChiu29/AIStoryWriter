@@ -376,7 +376,7 @@ def _GetDictIgnoreCase(dict_data: dict, key: str):
     if key in dict_data:
         return dict_data[key]
     else:
-        dict_data_low_case = {k.lower(): v for (k, v) in dict_data.values()}
+        dict_data_low_case = {k.lower(): v for (k, v) in dict_data.items()}
         return dict_data_low_case[key.lower()]
 
 # Now Generate Info
