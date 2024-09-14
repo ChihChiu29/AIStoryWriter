@@ -16,7 +16,8 @@
 # DEFAULT_MODEL_CONFIG = "ollama://llava-llama3:8b@192.168.1.71:11434"  # Wait eval "Supercatomeow and The Master"
 # DEFAULT_MODEL_CONFIG = "ollama://wizard-vicuna-uncensored:13b@192.168.1.71:11434"  # Wait eval "A Tale of Two Cities"
 # DEFAULT_MODEL_CONFIG = "ollama://wizardlm2:7b@192.168.1.71:11434"  # Inf loop about JSON generation.
-DEFAULT_MODEL_CONFIG = "ollama://hermes3:8b@192.168.1.71:11434"
+# DEFAULT_MODEL_CONFIG = "ollama://hermes3:8b@192.168.1.71:11434"  # Wait eval "The Enchanted Paintbrush"
+DEFAULT_MODEL_CONFIG = "ollama://glm4:9b@192.168.1.71:11434"  # Wait eval "The Whiskers of the Wildwood"
 
 
 INITIAL_OUTLINE_WRITER_MODEL = (
