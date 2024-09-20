@@ -12,7 +12,7 @@
 # DEFAULT_MODEL_CONFIG = "ollama://dolphin-llama3:8b@192.168.1.71:11434"  # Wait eval "Supercatomeow's Adventure"
 # DEFAULT_MODEL_CONFIG = "ollama://orca-mini:7b@192.168.1.71:11434"  # Doesn't work at all, 0 word generated.
 # DEFAULT_MODEL_CONFIG = "ollama://yi:9b@192.168.1.71:11434"  # Doesn't work at all, 0 word generated.
-# DEFAULT_MODEL_CONFIG = "ollama://mistral-openorca:7b@192.168.1.71:11434"  # Wait eval "Supercatomeow and The Master's Enchanted Adventure", score: 4
+# DEFAULT_MODEL_CONFIG = "ollama://mistral-openorca:7b@192.168.1.71:11434"  # "Supercatomeow and The Master's Enchanted Adventure", score: 4
 # DEFAULT_MODEL_CONFIG = "ollama://llava-llama3:8b@192.168.1.71:11434"  # Wait eval "Supercatomeow and The Master"
 # DEFAULT_MODEL_CONFIG = "ollama://wizard-vicuna-uncensored:13b@192.168.1.71:11434"  # Wait eval "A Tale of Two Cities"
 # DEFAULT_MODEL_CONFIG = "ollama://wizardlm2:7b@192.168.1.71:11434"  # Inf loop about JSON generation.
